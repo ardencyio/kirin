@@ -25,6 +25,9 @@ services named based on [greek alphabet](https://en.wikipedia.org/wiki/Greek_alp
 ### Just commands
 
 ```sh
+# list available commands
+$ just -l
+# outputs following
 	Available recipes:
 	bacon   # use bacon code checker
 	bc      # alias for `bacon`
