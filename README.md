@@ -5,7 +5,7 @@ A stealth [ステルスで] project
 サービスの秘密のコレクション
 > secret collection of services
 
-### Members
+### Service naming convention
 services named based on [greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet)
 
 - Tenchi | 天地
@@ -20,6 +20,10 @@ services named based on [greek alphabet](https://en.wikipedia.org/wiki/Greek_alp
 - [Ι ι] iota | イオタ iota ιώτα
 - [Λ λ] lambda | ラムダ lambda λά(μ)βδα
 - [Ο ο] omicron | オミクロン omicron όμικρον
+- [Π π] pi | パイ pi πι
+- [Σ σ] sigma | シグマ sigma σίγμα
+- [Τ τ] tau | タウ tau ταυ
+- [Υ υ] upsilon | アップシヨン upsilon ύψιλον
 - [Ω ω] Omega | オメガ omega ωμέγα
 
 ### Just commands
@@ -27,22 +31,23 @@ services named based on [greek alphabet](https://en.wikipedia.org/wiki/Greek_alp
 ```sh
 # list available commands
 $ just -l
+
 # outputs following
-	Available recipes:
-	bacon   # use bacon code checker
-	bc      # alias for `bacon`
-	build   # build project
-	b       # alias for `build`
-	check   # run cargo check
-	c       # alias for `check`
-	clippy  # everyone's favorite animate paper clip
-	grcov   # code coverage
-	g       # alias for `grcov`
-	nextest # run tests with nextest
-	nt      # alias for `nextest`
-	pl      # git pull
-	ps      # git push
-	run     # run application
-	test    # run tests
-	t       # alias for `test`
+Available recipes:
+bacon   # use bacon code checker
+bc      # alias for `bacon`
+build   # build project
+b       # alias for `build`
+check   # run cargo check
+c       # alias for `check`
+clippy  # everyone's favorite animate paper clip
+grcov   # code coverage
+g       # alias for `grcov`
+nextest # run tests with nextest
+nt      # alias for `nextest`
+pl      # git pull
+ps      # git push
+run     # run application
+test    # run tests
+t       # alias for `test`
 ```
