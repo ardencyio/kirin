@@ -3,9 +3,9 @@ use color_eyre::Result;
 use uuid::Uuid;
 
 // module dependencies
-use crate::errors::GetPersonError;
+use crate::errors::AppError;
 use crate::repository::Repository;
-use crate::types::person::Person;
+use crate::types::person::{NewPerson, Person};
 
 // Your use case
 pub struct GetPersonService<T: Repository> {
@@ -17,12 +17,12 @@ impl<T: Repository> GetPersonService<T> {
         Self { repository }
     }
 
-    pub async fn execute(&self, id: Uuid) -> Result<Person, GetPersonError> {
+    pub async fn get_person(&self, id: Uuid) -> Result<Person, AppError> {
         self.repository.get_person(id).await
-        // match self.repository.get_person(id).await {
-        //     Ok(p) => Ok(p),
-        //     Err(_) => Err(GetPersonError::PersonNotFound),
-        // }
+    }
+
+    pub async fn register(&self, person: NewPerson) -> Result<Vec<Uuid>, AppError> {
+        self.repository.register(person).await
     }
 }
 
@@ -38,6 +38,7 @@ mod test {
 
     // module deps
     use crate::repository::MockRepository;
+    use crate::types::Status;
 
     #[fixture]
     fn id() -> Uuid {
@@ -52,13 +53,28 @@ mod test {
             id,
             firstname: String::from("clark"),
             lastname: String::from("kent"),
-            email: String::from("superman@example.com"),
+            status: Status::PENDING,
+        }
+    }
+
+    #[fixture]
+    fn newperson() -> NewPerson {
+        NewPerson {
+            firstname: "testy".to_owned(),
+            lastname: "testy".to_owned(),
+            nickname: "testy".to_owned(),
+            status: Status::PENDING,
+            email: "test@example.com".to_owned(),
+            login: "testid".to_owned(),
+            password: "testhashpassword230434iru4o3iu345454n4340986Ur4iuy5".to_owned(),
+            preferred: true,
+            provider: "ardency".to_owned(),
         }
     }
 
     #[rstest]
     #[tokio::test]
-    #[ignore]
+    // #[ignore]
     async fn test_get_person(person: Person) -> Result<()> {
         let cp = person.clone();
         let mut mock = MockRepository::new();
@@ -69,19 +85,19 @@ mod test {
 
         let srvc = GetPersonService::new(mock);
 
-        let result = srvc.execute(person.id).await?;
+        let result = srvc.get_person(person.id).await?;
 
         assert_eq!(result, person);
         Ok(())
     }
 
     #[rstest]
-    // #[case(person(id()), Ok(person.clone()))]
-    #[case(person(id()), Err(GetPersonError::PersonNotFound))]
+    #[case(person(id()), Ok(person.clone()))]
+    #[case(person(id()), Err(AppError::PersonNotFound))]
     #[tokio::test]
     async fn test_get_person_again(
         #[case] person: Person,
-        #[case] expected: Result<Person, GetPersonError>,
+        #[case] expected: Result<Person, AppError>,
     ) -> Result<()> {
         let er = expected.clone();
         // Create a mock repository and set expectations
@@ -98,10 +114,40 @@ mod test {
         let srvc = GetPersonService::new(mock);
 
         // Call the use case and check the result
-        let result = srvc.execute(person.id).await?;
+        let result = srvc.get_person(person.id).await;
         println!("[expected]: {:#?} | [result]: {:#?}", expected, result);
 
-        assert_eq!(result, expected.unwrap());
+        assert_eq!(result.unwrap(), expected.unwrap());
+        Ok(())
+    }
+
+    #[rstest]
+    // #[case(newperson(), Ok(Vec<person.id()>))]
+    #[case(newperson(), Err(AppError::UnknownError))]
+    #[tokio::test]
+    async fn test_register(
+        #[case] newperson: NewPerson,
+        #[case] expected: Result<Vec<Uuid>, AppError>,
+    ) -> Result<()> {
+        let er = expected.clone();
+        // Create a mock repository and set expectations
+        let mut mock = MockRepository::new();
+        mock.expect_register()
+            .with(eq(newperson.clone()))
+            .times(1)
+            .returning(move |_| match er.clone() {
+                Ok(p) => Ok(p),
+                Err(e) => Err(e),
+            });
+
+        // Create a use case with the mock repository
+        let srvc = GetPersonService::new(mock);
+
+        // Call the use case and check the result
+        let result = srvc.register(newperson).await;
+        println!("[expected]: {:#?} | [result]: {:#?}", expected, result);
+
+        assert_eq!(result.unwrap(), expected.unwrap());
         Ok(())
     }
 }

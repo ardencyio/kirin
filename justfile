@@ -14,7 +14,7 @@ alias g := grcov
 # export environment variables
 export CARGO_INCREMENTAL := '0' 
 export RUSTFLAGS := '-Cinstrument-coverage' 
-export LLVM_PROFILE_FILE := 'cargo-test-%p-%m.profraw' 
+export LLVM_PROFILE_FILE := './profiles/tenchi-%p-%m.profraw' 
 
 
 # use bacon code checker
