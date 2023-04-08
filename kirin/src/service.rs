@@ -6,6 +6,7 @@ use uuid::Uuid;
 use crate::errors::AppError;
 use crate::repository::Repository;
 use crate::types::person::{NewPerson, Person};
+use crate::types::QueryResult;
 
 // Your use case
 pub struct GetPersonService<T: Repository> {
@@ -21,7 +22,7 @@ impl<T: Repository> GetPersonService<T> {
         self.repository.get_person(id).await
     }
 
-    pub async fn register(&self, person: NewPerson) -> Result<Vec<Uuid>, AppError> {
+    pub async fn register(&self, person: NewPerson) -> Result<Vec<QueryResult>, AppError> {
         self.repository.register(person).await
     }
 }

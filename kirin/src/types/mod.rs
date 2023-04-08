@@ -1,3 +1,4 @@
+use edgedb_derive::Queryable;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -13,7 +14,7 @@ pub enum Status {
     BLOCKED,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Queryable, Deserialize)]
 pub struct QueryResult {
     pub id: Uuid,
 }
