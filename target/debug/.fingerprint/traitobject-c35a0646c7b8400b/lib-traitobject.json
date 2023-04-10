@@ -1,0 +1,1 @@
+{"rustc":5075174800980901198,"features":"[]","target":3932653135536005920,"profile":8344124108420085910,"path":7524817434922181013,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"debug/.fingerprint/traitobject-c35a0646c7b8400b/dep-lib-traitobject"}}],"rustflags":["-Cinstrument-coverage"],"metadata":6130570391916809781,"config":2202906307356721367,"compile_kind":0}

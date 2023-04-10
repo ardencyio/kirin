@@ -1,32 +1,26 @@
-# T E N C H I   |  天地
+# K i r i n
 
-A stealth [ステルスで] project
+exlploring edgedb, rust and error testing with fixtures, cases and mocks.
 
-サービスの秘密のコレクション
-> secret collection of services
+## features
+- edgedb
+- clean architecture
+- modular application
+- custom errors
+- mocks using mockall
+- fixtures, cases using rstest
 
-### Service naming convention
-services named based on [greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet)
+## edgedb setup
 
-- Tenchi | 天地
-- [Α α] alpha | アルファ, alpah άλφα
-- [Β β] Bēta | ベータ, beta βήτα
-- [Γ γ] gamma | ガンマ gamma γάμμα
-- [Δ δ] delta | デルタ delta δέλτα
-- [Ε ε] epsilon | イプシロン epsilon έψιλον
-- [Ζ ζ] Zēta | ゼータ zeta ζήτα
-- [Η η] eta | eta ήτα
-- [Θ θ] theta | theta θήτα
-- [Ι ι] iota | イオタ iota ιώτα
-- [Λ λ] lambda | ラムダ lambda λά(μ)βδα
-- [Ο ο] omicron | オミクロン omicron όμικρον
-- [Π π] pi | パイ pi πι
-- [Σ σ] sigma | シグマ sigma σίγμα
-- [Τ τ] tau | タウ tau ταυ
-- [Υ υ] upsilon | アップシヨン upsilon ύψιλον
-- [Ω ω] Omega | オメガ omega ωμέγα
+run the following commands in the project folder
 
-### Just commands
+```sh
+# create a new edgedb project
+$ edgedb project init
+# launch the admin ui
+$ edgedb ui
+```
+note this codebase connects to the database assuming local instance and not using `dsn` or other `credentials` via the config `Builder`.
 
 ```sh
 # list available commands
@@ -49,5 +43,10 @@ pl      # git pull
 ps      # git push
 run     # run application
 test    # run tests
-t       # alias for `test`
+t   
 ```
+
+## useful links
+- [edgedb-rust](https://github.com/edgedb/edgedb-rust)
+- [rstests](https://github.com/la10736/rstest)
+- [mockall](https://github.com/asomers/mockall)
